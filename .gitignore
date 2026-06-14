@@ -1,0 +1,63 @@
+# ROS / colcon / catkin build outputs
+build/
+devel/
+install/
+log/
+.catkin_tools/
+.catkin_workspace
+CATKIN_IGNORE
+COLCON_IGNORE
+
+# CMake build artifacts
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+compile_commands.json
+CTestTestfile.cmake
+Testing/
+
+# Native build outputs
+*.o
+*.obj
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.out
+*.app
+
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Logs and runtime files
+*.log
+*.bag
+*.db3
+*.sqlite3
+*.pid
+core
+core.*
+
+# IDE and editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local transfer/deployment configuration
+sftp.json

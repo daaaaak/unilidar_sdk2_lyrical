@@ -260,6 +260,28 @@ We have verified that this package can successfully run in the following environ
 
 It is recommended that you configure an environment like this to run the package.
 
+This repository also contains compatibility updates verified with:
+- `Ubuntu 26`
+- `ROS2 Lyrical`
+- system package `libpcl-dev`
+- ROS package `ros-lyrical-pcl-conversions`
+
+Install the ROS2 Lyrical dependencies with:
+
+```bash
+sudo apt update
+sudo apt install libpcl-dev ros-lyrical-pcl-conversions ros-lyrical-tf2-ros
+```
+
+For ROS2 Lyrical, headers for some ROS packages may be installed under nested include paths such as:
+
+```text
+/opt/ros/lyrical/include/pcl_conversions/pcl_conversions/pcl_conversions.h
+/opt/ros/lyrical/include/tf2_ros/tf2_ros/transform_broadcaster.h
+```
+
+The ROS2 package has been updated for this layout by using the nested `pcl_conversions` and `tf2_ros` include paths. The unused `tf2/LinearMath/Quaternion.h` include was removed because the node copies quaternion values directly from the Unitree SDK IMU data.
+
 ### 5.2 Configuration
 
 The default communication method for the LiDAR is Ethernet mode. If you need to modify the working mode, you need to change the corresponding parameters in the configuration file. The path to the configuration file is:
@@ -283,8 +305,18 @@ Compile:
 
 ```bash
 cd unilidar_sdk/unitree_lidar_ros2
+source /opt/ros/<ros-distro>/setup.bash
 
-colcon build
+colcon build --symlink-install
+```
+
+For ROS2 Lyrical on Ubuntu 26, use a clean rebuild if CMake cached an older configuration:
+
+```bash
+cd /home/pi/unilidar_sdk2_lyrical/unitree_lidar_ros2
+rm -rf build install log
+source /opt/ros/lyrical/setup.bash
+colcon build --symlink-install
 ```
 
 ### 5.4 Running
