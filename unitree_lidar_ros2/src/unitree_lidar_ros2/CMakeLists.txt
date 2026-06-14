@@ -20,12 +20,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake REQUIRED)
-if(NOT COMMAND ament_target_dependencies)
-  set(_ament_target_dependencies_extras "${ament_cmake_DIR}/ament_cmake_target_dependencies-extras.cmake")
-  if(EXISTS "${_ament_target_dependencies_extras}")
-    include("${_ament_target_dependencies_extras}")
-  endif()
-endif()
+find_package(ament_cmake_target_dependencies REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -61,22 +56,15 @@ target_link_libraries(unitree_lidar_ros2_node
   ${UNITREE_LIDAR_SDK_LIB}
 )
 
-if(COMMAND ament_target_dependencies)
-  ament_target_dependencies(
-    unitree_lidar_ros2_node
-    rclcpp
-    std_msgs
-    sensor_msgs
-    geometry_msgs
-    tf2_ros
-    pcl_conversions
-  )
-else()
-  message(FATAL_ERROR
-    "ament_target_dependencies is unavailable. Source your ROS 2 Lyrical "
-    "environment before building, then build this package with colcon, for example: "
-    "source /opt/ros/lyrical/setup.bash && cd unitree_lidar_ros2 && colcon build")
-endif()
+ament_target_dependencies(
+  unitree_lidar_ros2_node
+  rclcpp
+  std_msgs
+  sensor_msgs
+  geometry_msgs
+  tf2_ros
+  pcl_conversions
+)
 
 install(TARGETS
 unitree_lidar_ros2_node
